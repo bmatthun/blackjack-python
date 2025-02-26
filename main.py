@@ -23,6 +23,8 @@ def select_card():
                 actual_card = 10
             elif random_index == 13:
                 actual_card = 11
+            elif random_index == 0:
+                continue
             else:
                 actual_card = random_index + 1
             break
@@ -59,12 +61,12 @@ Let\'s play!
             else:
                 dealer_cards.append(select_card())
 
-        print(f"Your cards: {player_cards}, dealer's cards: [{dealer_cards[0]}, X]")
+        print(f"Your cards: {player_cards} , dealer's cards: [{dealer_cards[0]}, X]")
 
         if first_round and sum(player_cards) > 20:
-            print("Wow! Nice hands! ;) You won!!")
-            print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
+            print(f"Wow! {sum(player_cards)}! Nice hands! ;) You won!!")
             score["player"] += 1
+            print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
             another_round = input("Another round? [y, n]\n")
             if another_round == "y":
                 continue
@@ -82,24 +84,30 @@ Let\'s play!
             another_round = False
             player_cards.append(select_card())
             if sum(player_cards) > 21:
-                print(f"Your cards: {player_cards}, dealer's cards: [{dealer_cards[0]}, X]")
                 if 11 in player_cards:
+                    print(f"Your cards: {player_cards} , dealer's cards: [{dealer_cards[0]}, X]")
                     print(f"The sum value of your cards in hand are greater than 21, the value of Ace will be reduced from 11 to 1! :)")
                     for card in player_cards:
                         if card == 11:
-                            card -= 10
-                    print(f"Your cards after the cutting the value of the Ace: {player_cards}, dealer's cards: [{dealer_cards[0]}, X]")
+                            player_cards.remove(11)
+                            player_cards.append(1)
+                    print(f"Your cards after the cutting the value of the Ace: {player_cards}, dealer's cards: [{dealer_cards[0]}, X] => ({sum(player_cards)} > 21")
                 else:
+                    print(f"Your cards: {player_cards} , dealer's cards: [{dealer_cards[0]}, X] => {sum(player_cards)} > 21")
+                    print(f"")
                     score["dealer"] += 1
                     print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
                     another_round = input("You've lost! :/ Another round? [y, n]\n")
-                    if another_round == "y":
-                        another_round = True
-                        break
-                    elif another_round == "n":
-                        sys.exit()
-                    else:
-                        print("Say what?")
+                    while True:
+                        if another_round == "y":
+                            another_round = True
+                            break
+                        elif another_round == "n":
+                            sys.exit()
+                        else:
+                            print("Say what?")
+                            another_round = input("Another round? [y, n]\n")
+                    break
 
             elif sum(player_cards) < 21:
                 print(f"Your cards: {player_cards}, dealer's cards: [{dealer_cards[0]}, X]")
@@ -111,13 +119,16 @@ Let\'s play!
                 score["player"] += 1
                 print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
                 another_round = input("Another round? [y, n]\n")
-                if another_round == "y":
-                    another_round = True
-                    break
-                elif another_round == "n":
-                    sys.exit()
-                else:
-                    print("Say what?")
+                while True:
+                    if another_round == "y":
+                        another_round = True
+                        break
+                    elif another_round == "n":
+                        sys.exit()
+                    else:
+                        print("Say what?")
+                        another_round = input("Another round? [y, n]\n")
+                break
 
         if another_round:
             continue
@@ -125,57 +136,71 @@ Let\'s play!
         while sum(dealer_cards) < 17:
             dealer_cards.append(select_card())
 
-        print(f"Your cards: {player_cards}, dealer's cards: {dealer_cards}")
         if sum(dealer_cards) > 21:
+            print(f"Your cards: {player_cards}, dealer's cards: {dealer_cards} => dealer's cards (=> {sum(dealer_cards)}) are greater than 21")
             print("You won!! :)")
             score["player"] += 1
             print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
             another_round = input("Another round? [y, n]\n")
-            if another_round == "y":
-                another_round = True
-                continue
-            elif another_round == "n":
-                sys.exit()
-            else:
-                print("Say what?")
+            while True:
+                if another_round == "y":
+                    another_round = True
+                    break
+                elif another_round == "n":
+                    sys.exit()
+                else:
+                    print("Say what?")
+                    another_round = input("Another round? [y, n]\n")
+            continue
 
         elif sum(dealer_cards) < sum(player_cards):
+            print(f"Your cards: {player_cards}, dealer's cards: {dealer_cards} => {sum(player_cards)} > {sum(dealer_cards)}")
             print("You won!! :)")
             score["player"] += 1
             print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
             another_round = input("Another round? [y, n]\n")
-            if another_round == "y":
-                another_round = True
-                continue
-            elif another_round == "n":
-                sys.exit()
-            else:
-                print("Say what?")
+            while True:
+                if another_round == "y":
+                    another_round = True
+                    break
+                elif another_round == "n":
+                    sys.exit()
+                else:
+                    print("Say what?")
+                    another_round = input("Another round? [y, n]\n")
+            continue
 
         elif sum(dealer_cards) > sum(player_cards):
+            print(f"Your cards: {player_cards}, dealer's cards: {dealer_cards} => {sum(player_cards)} < {sum(dealer_cards)}")
             print("You Lost!! :((")
             score["dealer"] += 1
             print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
             another_round = input("Another round? [y, n]\n")
-            if another_round == "y":
-                another_round = True
-                continue
-            elif another_round == "n":
-                sys.exit()
-            else:
-                print("Say what?")
+            while True:
+                if another_round == "y":
+                    another_round = True
+                    break
+                elif another_round == "n":
+                    sys.exit()
+                else:
+                    print("Say what?")
+                    another_round = input("Another round? [y, n]\n")
+            continue
 
         else:
+            print(f"Your cards: {player_cards}, dealer's cards: {dealer_cards} => {sum(player_cards)} = {sum(dealer_cards)}")
             print("DRAW! :O")
             print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
-            another_round = input("Another round? [y, n]\n")
-            if another_round == "y":
-                another_round = True
-                break
-            elif another_round == "n":
-                sys.exit()
-            else:
-                print("Say what?")
+            while True:
+                if another_round == "y":
+                    another_round = True
+                    break
+                elif another_round == "n":
+                    sys.exit()
+                else:
+                    print("Say what?")
+                    another_round = input("Another round? [y, n]\n")
+            continue
 
 
 
