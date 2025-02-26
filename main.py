@@ -63,8 +63,9 @@ Let\'s play!
 
         if first_round and sum(player_cards) > 20:
             print("Wow! Nice hands! ;) You won!!")
+            print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
             score["player"] += 1
-            another_round = input("Another round? [y, n]")
+            another_round = input("Another round? [y, n]\n")
             if another_round == "y":
                 continue
             elif another_round == "n":
@@ -89,8 +90,9 @@ Let\'s play!
                             card -= 10
                     print(f"Your cards after the cutting the value of the Ace: {player_cards}, dealer's cards: [{dealer_cards[0]}, X]")
                 else:
-                    another_round = input("You've lost! :/ Another round? [y, n]")
                     score["dealer"] += 1
+                    print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
+                    another_round = input("You've lost! :/ Another round? [y, n]\n")
                     if another_round == "y":
                         another_round = True
                         break
@@ -106,7 +108,9 @@ Let\'s play!
 
             else:
                 print(f"21!! BlackJack!! Your cards: {player_cards}, dealer's cards: [{dealer_cards[0]}, X]")
-                another_round = input("Another round? [y, n]")
+                score["player"] += 1
+                print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
+                another_round = input("Another round? [y, n]\n")
                 if another_round == "y":
                     another_round = True
                     break
@@ -125,7 +129,8 @@ Let\'s play!
         if sum(dealer_cards) > 21:
             print("You won!! :)")
             score["player"] += 1
-            another_round = input("Another round? [y, n]")
+            print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
+            another_round = input("Another round? [y, n]\n")
             if another_round == "y":
                 another_round = True
                 continue
@@ -137,7 +142,8 @@ Let\'s play!
         elif sum(dealer_cards) < sum(player_cards):
             print("You won!! :)")
             score["player"] += 1
-            another_round = input("Another round? [y, n]")
+            print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
+            another_round = input("Another round? [y, n]\n")
             if another_round == "y":
                 another_round = True
                 continue
@@ -149,7 +155,8 @@ Let\'s play!
         elif sum(dealer_cards) > sum(player_cards):
             print("You Lost!! :((")
             score["dealer"] += 1
-            another_round = input("Another round? [y, n]")
+            print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
+            another_round = input("Another round? [y, n]\n")
             if another_round == "y":
                 another_round = True
                 continue
@@ -160,7 +167,8 @@ Let\'s play!
 
         else:
             print("DRAW! :O")
-            another_round = input("Another round? [y, n]")
+            print(f"Score:\n{name}: {score['player']} - Dealer: {score['dealer']}")
+            another_round = input("Another round? [y, n]\n")
             if another_round == "y":
                 another_round = True
                 break
@@ -168,4 +176,6 @@ Let\'s play!
                 sys.exit()
             else:
                 print("Say what?")
+
+
 
